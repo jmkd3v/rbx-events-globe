@@ -3,7 +3,7 @@ function HoverItem(props) {
     <div className="font-sans p-4 flex space-x-4 bg-white dark:bg-black rounded-xl shadow-md">
       {props.data.logo.thumbnail_url && (
         <img
-          class="flex-none w-18 h-18 rounded-lg object-cover bg-gray-100"
+          className="flex-none w-18 h-18 rounded-lg object-cover bg-gray-100"
           width="144"
           height="144"
           src={props.data.logo.thumbnail_url}
