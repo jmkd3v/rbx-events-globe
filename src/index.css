@@ -9,39 +9,10 @@ body {
   margin: 0;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 #root {
-  width: 100%;
-  height: 100%;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-.rbx-tooltip {
-  padding: 8px;
-  background: rgb(0, 0, 0, 0.5);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-radius: 6px;
-}
-
-.rbx-tooltip-logo {
-  border-radius: 4px;
-  height: 100px;
-  width: 100px;
-}
-
-.rbx-tooltip-image {
-  height: 100px;
-  object-fit: cover;
-  border-radius: 4px;
-}
-
-.globe-placeholder {
   width: 100%;
   height: 100%;
 }
