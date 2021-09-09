@@ -1,5 +1,5 @@
 import ReactDOMServer from "react-dom/server";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Globe from "react-globe.gl";
 import HoverItem from "./HoverItem";
 import Nav from "./Nav.js";
@@ -7,12 +7,15 @@ import NavItem from "./NavItem.js";
 import { SizeMe } from "react-sizeme";
 import worldTexture from "./globes/world.jpg";
 import worldTexture2 from "./globes/world2.jpg";
-import { render } from "@testing-library/react";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { places: [] };
+    this.state = {
+      places: [],
+      radius: 0.3,
+      size: 0.4,
+    };
   }
 
   componentDidMount() {
@@ -37,23 +40,6 @@ class App extends React.Component {
           </NavItem>
           <NavItem href="/popular">Popular</NavItem>
           <NavItem href="/recent">Recent</NavItem>
-          <button
-            onClick={() => {
-              if (this.state.texture == worldTexture) {
-                console.log("high");
-                this.setState({
-                  texture: worldTexture2,
-                });
-              } else {
-                console.log("low");
-                this.setState({
-                  texture: worldTexture,
-                });
-              }
-            }}
-          >
-            egg
-          </button>
         </Nav>
         <SizeMe monitorHeight>
           {({ size }) => {
@@ -73,14 +59,51 @@ class App extends React.Component {
                       <HoverItem data={d}></HoverItem>
                     )
                   }
-                  labelSize={(d) => 0.4}
+                  labelSize={(d) => this.state.size}
                   onLabelClick={(d) => {
                     window.location.href = d.url;
                   }}
-                  labelDotRadius={(d) => 0.3}
+                  labelDotRadius={(d) => this.state.radius}
                   labelColor={() => "#0099FF"}
                   labelResolution={3}
                   labelAltitude={(d) => 0.01}
+                  onZoom={(zoomInfo) => {
+                    // WARNING: Ugly code ahead!!! Will fix soon.
+                    if (zoomInfo.altitude <= 0.1) {
+                      if (this.state.radius != 0.025) {
+                        this.setState({
+                          radius: 0.025,
+                          size: 0.05,
+                        });
+                      }
+                    } else if (zoomInfo.altitude <= 0.25) {
+                      if (this.state.radius != 0.05) {
+                        this.setState({
+                          radius: 0.05,
+                          size: 0.1,
+                        });
+                      }
+                    } else if (zoomInfo.altitude <= 0.5) {
+                      if (this.state.radius != 0.1) {
+                        if (this.state.texture != worldTexture2) {
+                          this.setState({
+                            texture: worldTexture2,
+                          });
+                        }
+                        this.setState({
+                          radius: 0.1,
+                          size: 0.2,
+                        });
+                      }
+                    } else {
+                      if (this.state.radius != 0.3) {
+                        this.setState({
+                          radius: 0.3,
+                          size: 0.4,
+                        });
+                      }
+                    }
+                  }}
                 />
               </div>
             );
