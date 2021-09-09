@@ -21,7 +21,10 @@ class App extends React.Component {
       .then((data) => {
         data = data[0].chapters;
         console.log(data);
-        this.setState({ places: data });
+        this.setState({
+          places: data,
+          texture: worldTexture,
+        });
       });
   }
 
@@ -34,6 +37,23 @@ class App extends React.Component {
           </NavItem>
           <NavItem href="/popular">Popular</NavItem>
           <NavItem href="/recent">Recent</NavItem>
+          <button
+            onClick={() => {
+              if (this.state.texture == worldTexture) {
+                console.log("high");
+                this.setState({
+                  texture: worldTexture2,
+                });
+              } else {
+                console.log("low");
+                this.setState({
+                  texture: worldTexture,
+                });
+              }
+            }}
+          >
+            egg
+          </button>
         </Nav>
         <SizeMe monitorHeight>
           {({ size }) => {
@@ -42,7 +62,7 @@ class App extends React.Component {
                 <Globe
                   width={size.width}
                   height={size.height}
-                  globeImageUrl={worldTexture2}
+                  globeImageUrl={this.state.texture}
                   backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
                   labelsData={this.state.places}
                   labelLat={(d) => d.latitude}
