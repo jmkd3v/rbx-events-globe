@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/rbx-events-globe/static/css/main.f93d5653.chunk.css",
+    "main.js": "/rbx-events-globe/static/js/main.85704fe3.chunk.js",
+    "main.js.map": "/rbx-events-globe/static/js/main.85704fe3.chunk.js.map",
+    "runtime-main.js": "/rbx-events-globe/static/js/runtime-main.ee5fbb7d.js",
+    "runtime-main.js.map": "/rbx-events-globe/static/js/runtime-main.ee5fbb7d.js.map",
+    "static/js/2.f719bfaf.chunk.js": "/rbx-events-globe/static/js/2.f719bfaf.chunk.js",
+    "static/js/2.f719bfaf.chunk.js.map": "/rbx-events-globe/static/js/2.f719bfaf.chunk.js.map",
+    "static/js/3.863aab4b.chunk.js": "/rbx-events-globe/static/js/3.863aab4b.chunk.js",
+    "static/js/3.863aab4b.chunk.js.map": "/rbx-events-globe/static/js/3.863aab4b.chunk.js.map",
+    "index.html": "/rbx-events-globe/index.html",
+    "static/css/main.f93d5653.chunk.css.map": "/rbx-events-globe/static/css/main.f93d5653.chunk.css.map",
+    "static/js/2.f719bfaf.chunk.js.LICENSE.txt": "/rbx-events-globe/static/js/2.f719bfaf.chunk.js.LICENSE.txt",
+    "static/media/world.931b068c.jpg": "/rbx-events-globe/static/media/world.931b068c.jpg",
+    "static/media/world2.3ebd9656.jpg": "/rbx-events-globe/static/media/world2.3ebd9656.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ee5fbb7d.js",
+    "static/js/2.f719bfaf.chunk.js",
+    "static/css/main.f93d5653.chunk.css",
+    "static/js/main.85704fe3.chunk.js"
+  ]
+}
