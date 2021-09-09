@@ -17,20 +17,18 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <Globe
-        globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
-        backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
-        labelsData={places}
-        labelLat={(d) => d.latitude}
-        labelLng={(d) => d.longitude}
-        labelText={(d) => d.title}
-        labelSize={0.5}
-        labelDotRadius={0.1}
-        labelColor={() => "rgba(255, 165, 0, 0.75)"}
-        labelResolution={2}
-      />
-    </div>
+    <Globe
+      globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
+      backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
+      labelsData={places}
+      labelLat={(d) => d.latitude}
+      labelLng={(d) => d.longitude}
+      labelText={(d) => d.title}
+      labelSize={(d) => 1}
+      labelDotRadius={(d) => 1}
+      labelColor={() => "#0099FF"}
+      labelResolution={2}
+    />
   );
 }
 
