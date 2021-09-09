@@ -25,21 +25,28 @@ function App() {
       labelLat={(d) => d.latitude}
       labelLng={(d) => d.longitude}
       labelText={(d) => d.title}
-      labelLabel={(d) => `<div class="rbx-tooltip">${
-        (d.picture.thumbnail_url &&
-          `<img src="${d.picture.thumbnail_url}" />`) ||
+      labelLabel={(d) => `<div class="rbx-tooltip">
+      ${
+        (d.logo.thumbnail_url &&
+          `<img class="rbx-tooltip-logo" src="${d.logo.thumbnail_url}" />`) ||
         ""
       }
+      ${
+        (d.picture.thumbnail_url &&
+          `<img class="rbx-tooltip-image" src="${d.picture.thumbnail_url}" />`) ||
+        ""
+      }
+      ${((d.picture.thumbnail_url || d.logo.thumbnail_url) && "<br>") || ""}
         ${d.title}<br>
         ${d.url}<br>
         ${d.city}, ${d.country}
       </div>`}
-      labelSize={(d) => 1}
+      labelSize={(d) => 0.5}
       onLabelClick={(d) => {
         window.location.href = d.url;
       }}
       onLabelHover={setHoverD}
-      labelDotRadius={(d) => 1}
+      labelDotRadius={(d) => 0.5}
       labelColor={() => "#0099FF"}
       labelResolution={3}
       labelAltitude={(d) => (d === hoverD ? 0.07 : 0.06)}

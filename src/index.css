@@ -17,5 +17,17 @@ code {
   background: rgb(0, 0, 0, 0.5);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  border-radius: 6px;
+}
+
+.rbx-tooltip-logo {
+  border-radius: 4px;
+  height: 100px;
+  width: 100px;
+}
+
+.rbx-tooltip-image {
+  height: 100px;
+  object-fit: cover;
   border-radius: 4px;
 }
