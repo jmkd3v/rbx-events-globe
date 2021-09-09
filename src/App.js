@@ -34,13 +34,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="flex flex-col h-full font-sans">
-        <Nav>
-          <NavItem href="/" isActive>
-            Globe
-          </NavItem>
-          <NavItem href="/popular">Popular</NavItem>
-          <NavItem href="/recent">Recent</NavItem>
-        </Nav>
+        <Nav></Nav>
         <SizeMe monitorHeight>
           {({ size }) => {
             return (
