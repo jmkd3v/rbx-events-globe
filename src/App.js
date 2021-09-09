@@ -19,7 +19,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch("https://events.rbx.com/api/chapter_region?chapters=true")
+    fetch("https://api.jmk.gg/✨")
       .then((res) => res.json())
       .then((data) => {
         data = data[0].chapters;
