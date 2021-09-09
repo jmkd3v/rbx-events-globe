@@ -19,21 +19,21 @@ function App() {
   }, []);
 
   return (
-    <SizeMe>
-      {({ size }) => {
-        console.log(size);
-        return (
-          <Globe
-            className="globe-placeholder"
-            width={size.width}
-            height={size.height}
-            globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
-            backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
-            labelsData={places}
-            labelLat={(d) => d.latitude}
-            labelLng={(d) => d.longitude}
-            labelText={(d) => d.title}
-            labelLabel={(d) => `<div class="rbx-tooltip">
+    <div className="App">
+      <SizeMe>
+        {({ size }) => {
+          console.log(size);
+          return (
+            <Globe
+              // width={size.width}
+              // height={size.height}
+              globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
+              backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
+              labelsData={places}
+              labelLat={(d) => d.latitude}
+              labelLng={(d) => d.longitude}
+              labelText={(d) => d.title}
+              labelLabel={(d) => `<div class="rbx-tooltip">
       ${
         (d.logo.thumbnail_url &&
           `<img class="rbx-tooltip-logo" src="${d.logo.thumbnail_url}" />`) ||
@@ -49,20 +49,21 @@ function App() {
         ${d.url}<br>
         ${d.city}, ${d.country}
       </div>`}
-            labelSize={(d) => 0.5}
-            onLabelClick={(d) => {
-              window.location.href = d.url;
-            }}
-            onLabelHover={setHoverD}
-            labelDotRadius={(d) => 0.5}
-            labelColor={() => "#0099FF"}
-            labelResolution={3}
-            labelAltitude={(d) => (d === hoverD ? 0.07 : 0.06)}
-            labelsTransitionDuration={300}
-          />
-        );
-      }}
-    </SizeMe>
+              labelSize={(d) => 0.5}
+              onLabelClick={(d) => {
+                window.location.href = d.url;
+              }}
+              onLabelHover={setHoverD}
+              labelDotRadius={(d) => 0.5}
+              labelColor={() => "#0099FF"}
+              labelResolution={3}
+              labelAltitude={(d) => (d === hoverD ? 0.07 : 0.06)}
+              labelsTransitionDuration={300}
+            />
+          );
+        }}
+      </SizeMe>
+    </div>
   );
 }
 
