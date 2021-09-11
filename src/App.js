@@ -8,6 +8,9 @@ import { SizeMe } from "react-sizeme";
 import worldTexture from "./globes/world.jpg";
 import worldTexture2 from "./globes/world2.jpg";
 
+const combineRadius = 0.2; // how close the lat/long have to be to another object to get combined
+const namesLimit = 2; // amount of names to show on each place before adding "and X others"
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -27,10 +30,29 @@ class App extends React.Component {
           places = places.concat(chapterContainer.chapters);
         }
 
+        let newPlaces = [];
+
+        for (let place of places) {
+          let isNew = true;
+          for (let newPlace of newPlaces) {
+            if (
+              Math.abs(newPlace.latitude - place.latitude) < combineRadius &&
+              Math.abs(newPlace.longitude - place.longitude) < combineRadius
+            ) {
+              isNew = false;
+              newPlace.titles.push(place.title);
+            }
+          }
+          if (isNew) {
+            place.titles = [place.title];
+            newPlaces.push(place);
+          }
+        }
+
         console.log(places);
 
         this.setState({
-          places: places,
+          places: newPlaces,
           texture: worldTexture,
         });
       });
@@ -52,7 +74,21 @@ class App extends React.Component {
                   labelsData={this.state.places}
                   labelLat={(d) => d.latitude}
                   labelLng={(d) => d.longitude}
-                  labelText={(d) => d.title}
+                  labelText={(d) => {
+                    if (d.titles.length > namesLimit) {
+                      let label =
+                        d.titles[0] +
+                        ", " +
+                        d.titles[1] +
+                        " and " +
+                        (d.titles.length - namesLimit) +
+                        " others";
+                      console.log(label);
+                      return label;
+                    } else {
+                      return d.titles.join(", ");
+                    }
+                  }}
                   labelLabel={(d) =>
                     ReactDOMServer.renderToString(
                       <HoverItem data={d}></HoverItem>
