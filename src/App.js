@@ -8,17 +8,16 @@ import { SizeMe } from "react-sizeme";
 import worldTexture from "./globes/world.jpg";
 import worldTexture2 from "./globes/world2.jpg";
 
-const combineRadiuses = ["0.2", "0.4", "1"];
+const combineRadius = 0.2; // how close the lat/long have to be to another object to get combined
+const namesLimit = 2; // amount of names to show on each place before adding "and X others"
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      places: {},
+      places: [],
       radius: 0.3,
       size: 0.4,
-      namesLimit: 1,
-      combineRadius: "0.2",
     };
   }
 
@@ -26,45 +25,34 @@ class App extends React.Component {
     fetch("https://api.jmk.gg/✨")
       .then((res) => res.json())
       .then((data) => {
-        let globalPlaces = {};
-
-        for (let combineRadius of combineRadiuses) {
-          console.log(combineRadius);
-          let places = [];
-          for (let chapterContainer of data) {
-            places = places.concat(chapterContainer.chapters);
-          }
-
-          let newPlaces = [];
-
-          for (let place of places) {
-            let isNew = true;
-            for (let newPlace of newPlaces) {
-              if (
-                Math.abs(newPlace.latitude - place.latitude) <
-                  parseFloat(combineRadius) &&
-                Math.abs(newPlace.longitude - place.longitude) <
-                  parseFloat(combineRadius)
-              ) {
-                isNew = false;
-                console.log("Adding", place.title, "to", newPlace.titles);
-                newPlace.titles.push(place.title);
-              }
-            }
-            if (isNew) {
-              place.titles = [place.title];
-              console.log("Is new", place.titles);
-              newPlaces.push(place);
-            }
-          }
-
-          globalPlaces[combineRadius] = newPlaces;
+        let places = [];
+        for (let chapterContainer of data) {
+          places = places.concat(chapterContainer.chapters);
         }
 
-        console.log(globalPlaces);
+        let newPlaces = [];
+
+        for (let place of places) {
+          let isNew = true;
+          for (let newPlace of newPlaces) {
+            if (
+              Math.abs(newPlace.latitude - place.latitude) < combineRadius &&
+              Math.abs(newPlace.longitude - place.longitude) < combineRadius
+            ) {
+              isNew = false;
+              newPlace.titles.push(place.title);
+            }
+          }
+          if (isNew) {
+            place.titles = [place.title];
+            newPlaces.push(place);
+          }
+        }
+
+        console.log(places);
 
         this.setState({
-          places: globalPlaces,
+          places: newPlaces,
           texture: worldTexture,
         });
       });
@@ -83,16 +71,19 @@ class App extends React.Component {
                   height={size.height}
                   globeImageUrl={this.state.texture}
                   backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
-                  labelsData={this.state.places[this.state.combineRadius]}
+                  labelsData={this.state.places}
                   labelLat={(d) => d.latitude}
                   labelLng={(d) => d.longitude}
                   labelText={(d) => {
-                    if (d.titles.length > this.state.namesLimit) {
+                    if (d.titles.length > namesLimit) {
                       let label =
-                        d.titles.slice(0, this.state.namesLimit).join(", ") +
+                        d.titles[0] +
+                        ", " +
+                        d.titles[1] +
                         " and " +
-                        (d.titles.length - this.state.namesLimit) +
+                        (d.titles.length - namesLimit) +
                         " others";
+                      console.log(label);
                       return label;
                     } else {
                       return d.titles.join(", ");
@@ -118,8 +109,6 @@ class App extends React.Component {
                         this.setState({
                           radius: 0.025,
                           size: 0.05,
-                          namesLimit: 4,
-                          combineRadius: "0.2",
                         });
                       }
                     } else if (zoomInfo.altitude <= 0.25) {
@@ -127,8 +116,6 @@ class App extends React.Component {
                         this.setState({
                           radius: 0.05,
                           size: 0.1,
-                          namesLimit: 3,
-                          combineRadius: "0.4",
                         });
                       }
                     } else if (zoomInfo.altitude <= 0.5) {
@@ -141,8 +128,6 @@ class App extends React.Component {
                         this.setState({
                           radius: 0.1,
                           size: 0.2,
-                          namesLimit: 2,
-                          combineRadius: "1",
                         });
                       }
                     } else {
@@ -150,8 +135,6 @@ class App extends React.Component {
                         this.setState({
                           radius: 0.3,
                           size: 0.4,
-                          namesLimit: 1,
-                          combineRadius: "1",
                         });
                       }
                     }
