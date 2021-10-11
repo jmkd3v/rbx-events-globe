@@ -22,15 +22,10 @@ class App extends React.Component {
     fetch("https://api.jmk.gg/✨")
       .then((res) => res.json())
       .then((data) => {
-        let places = [];
-        for (let chapterContainer of data) {
-          places = places.concat(chapterContainer.chapters);
-        }
-
-        console.log(places);
-
+        data = data[0].chapters;
+        console.log(data);
         this.setState({
-          places: places,
+          places: data,
           texture: worldTexture,
         });
       });
